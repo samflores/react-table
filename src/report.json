@@ -1,0 +1,1210 @@
+{
+  "entity": {
+    "name": "BERNADETE JABRA TAVARES",
+    "document": "224.325.938-98"
+  },
+  "report": {
+    "numero": "95a55577-5d90-4224-827a-077e3773488e",
+    "status": "CONCLUIDO",
+    "nome": "pontte_bgc_pf_com_serasa",
+    "mensagem": "Inválido. [INVALID] Encontrada(s) 5 Pendência(s) Financeira(s). [VALID] Pessoa não é PEP Encontrado(s) 1 processo(s) onde a parte foi citada como Réu. [INVALID] Consta registro de dívida ativa na Fazenda (4.428,55). [INVALID] Encontrada(s) 2 Restrição(ões) Financeira(s).",
+    "resultado": "INVALID",
+    "validado_em": "2020-02-06T15:22:10.477Z",
+    "validado_por": null,
+    "validado_manualmente": false,
+    "atualizado_em": "2020-02-06T15:25:41.501Z",
+    "criado_em": "2020-02-06T15:22:10.271Z",
+    "criado_por": "pontte_vitoria",
+    "descricao": "Consulta a Receita Federal, Birô Privado, Serasa Concentre, TRJ SP + Origem, TRF, STF, STJ, PF, BNM, COAF,OFAC, Protestos, divida ativa + TRT2, Divida trabalhista + Sansões ONU",
+    "titulo": "Pontte Consulta de PF - Com Serasa",
+    "flag": []
+  },
+  "sections": [
+    {
+      "section": "certidoes_negativas",
+      "checks": [
+        {
+          "regra": "idwall.matrix.regras.certidoes.RegraMandadosPrisao",
+          "nome": "Mandados de Prisão",
+          "descricao": "Não devem constar mandados de prisão",
+          "resultado": "VALID"
+        },
+        {
+          "regra": "idwall.matrix.regras.certidoes.RegraTRTSP",
+          "nome": "Ações trabalhistas no TRTSP",
+          "descricao": "Não devem constar ações trabalhistas no TRTSP",
+          "resultado": "VALID"
+        },
+        {
+          "regra": "idwall.matrix.regras.antecedentes.RegraAntecedente",
+          "nome": "Antecedentes Criminais",
+          "descricao": "Não deve constar antecedentes criminais",
+          "resultado": "VALID"
+        },
+        {
+          "regra": "idwall.matrix.regras.certidoes.RegraDebitosTrabalhistas",
+          "nome": "Débitos Trabalhistas",
+          "descricao": "Não devem constar débitos trabalhistas",
+          "resultado": "VALID"
+        }
+      ],
+      "status": "VALID"
+    },
+    {
+      "section": "cpf",
+      "checks": [
+        {
+          "regra": "idwall.matrix.regras.cpf.RegraNomeReceitaFederal",
+          "nome": "Nome na Receita Federal",
+          "descricao": "Nome deve ser igual ao cadastrado na Receita Federal",
+          "resultado": "VALID"
+        },
+        {
+          "regra": "idwall.matrix.regras.cpf.RegraObito",
+          "nome": "Registro de óbito na Receita Federal",
+          "descricao": "Não deve constar registro de óbito na Receita Federal",
+          "resultado": "VALID"
+        },
+        {
+          "regra": "idwall.matrix.regras.cpf.RegraDataNascimento",
+          "nome": "Data de Nascimento na Receita Federal",
+          "descricao": "Data de Nascimento deve ser igual ao cadastrado na Receita Federal",
+          "resultado": "VALID"
+        },
+        {
+          "regra": "idwall.matrix.regras.cpf.RegraPep",
+          "nome": "Regra de validação de Pessoa Politicamente Exposta",
+          "descricao": "Verifica se uma pessoa é considerada PEP",
+          "resultado": "VALID",
+          "mensagem": "[VALID] Pessoa não é PEP"
+        },
+        {
+          "regra": "idwall.matrix.regras.cpf.RegraSituacaoReceitaFederal",
+          "nome": "Situação Cadastral Regular",
+          "descricao": "Situação cadastral do CPF deve ser REGULAR",
+          "resultado": "VALID"
+        }
+      ],
+      "status": "VALID"
+    },
+    {
+      "section": "divida_ativa",
+      "checks": [
+        {
+          "regra": "idwall.matrix.regras.blacklists.RegraDividaAtiva",
+          "nome": "Dívida ativa na Fazenda",
+          "descricao": "Busca na lista de devedores que possuem débitos com a Fazenda Nacional e o FGTS inscritos em dívida ativa",
+          "resultado": "INVALID",
+          "mensagem": "[INVALID] Consta registro de dívida ativa na Fazenda (4.428,55)."
+        }
+      ],
+      "status": "INVALID"
+    },
+    {
+      "section": "processos",
+      "checks": [
+        {
+          "regra": "idwall.matrix.regras.serasa.concentre.RegraProcessosSerasaConcentre",
+          "nome": "Processos no Serasa Concentre",
+          "descricao": "Não deve constar processos (ações judiciais) no Serasa Concentre",
+          "resultado": "VALID"
+        },
+        {
+          "regra": "idwall.matrix.regras.processos.RegraProcessosReu",
+          "nome": "Processos nos Tribunais de Justiça como Réu",
+          "descricao": "Não deve constar processos nos Tribunais de Justiça onde a parte consultada foi citada como ré(u)",
+          "resultado": "INVALID",
+          "mensagem": "Encontrado(s) 1 processo(s) onde a parte foi citada como Réu."
+        }
+      ],
+      "status": "INVALID"
+    },
+    {
+      "section": "protestos",
+      "checks": [
+        {
+          "regra": "idwall.matrix.regras.protestos.RegraProtestos",
+          "nome": "Protestos",
+          "descricao": "Não devem constar protestos",
+          "resultado": "VALID"
+        },
+        {
+          "regra": "idwall.matrix.regras.serasa.concentre.RegraProtestosSerasaConcentre",
+          "nome": "Regra Protestos Serasa Concentre",
+          "descricao": "Não deve constar protestos no Serasa Concentre",
+          "resultado": "VALID"
+        }
+      ],
+      "status": "VALID"
+    },
+    {
+      "section": "pendencias",
+      "checks": [
+        {
+          "regra": "idwall.matrix.regras.serasa.concentre.RegraPefinSerasaConcentre",
+          "nome": "Pendencias Financeiras Serasa Concentre (PEFIN)",
+          "descricao": "Não deve constar pendências financeiras (PEFIN) no Serasa Concentre",
+          "resultado": "INVALID",
+          "mensagem": "[INVALID] Encontrada(s) 5 Pendência(s) Financeira(s)."
+        }
+      ],
+      "status": "INVALID"
+    },
+    {
+      "section": "restricoes_financeiras",
+      "checks": [
+        {
+          "regra": "idwall.matrix.regras.serasa.concentre.RegraRefinSerasaConcentre",
+          "nome": "Restrições Financeiras Serasa Concentre (REFIN)",
+          "descricao": "Não deve constar restrições financeiras (REFIN) no Serasa Concentre",
+          "resultado": "INVALID",
+          "mensagem": "[INVALID] Encontrada(s) 2 Restrição(ões) Financeira(s)."
+        }
+      ],
+      "status": "INVALID"
+    },
+    {
+      "section": "emails",
+      "checks": [],
+      "status": "ERRO"
+    },
+    {
+      "section": "enderecos",
+      "checks": [],
+      "status": "ERRO"
+    },
+    {
+      "section": "participacao_empresas",
+      "checks": [],
+      "status": "ERRO"
+    },
+    {
+      "section": "pessoas_relacionadas",
+      "checks": [],
+      "status": "ERRO"
+    },
+    {
+      "section": "telefones",
+      "checks": [],
+      "status": "ERRO"
+    },
+    {
+      "section": "ofac_sdn",
+      "checks": [
+        {
+          "regra": "idwall.matrix.regras.blacklists.RegraSDN",
+          "nome": "Indivíduos na lista de SDN da OFAC",
+          "descricao": "Busca pessoas listadas na SDN da OFAC",
+          "resultado": "VALID"
+        },
+        {
+          "regra": "idwall.matrix.regras.blacklists.RegraUNSanctions",
+          "nome": "Sanções Nações Unidas",
+          "descricao": "Verifica se um nome de empresa ou pessoa está presente na lista de sanções da Nações Unidas",
+          "resultado": "VALID"
+        }
+      ],
+      "status": "VALID"
+    },
+    {
+      "section": "parametros",
+      "checks": []
+    }
+  ],
+  "data": {
+    "atualizado_em": "2020-02-06T15:25:41.501Z",
+    "criado_em": "2020-02-06T15:22:10.271Z",
+    "mensagem": "Inválido. [INVALID] Encontrada(s) 5 Pendência(s) Financeira(s). [VALID] Pessoa não é PEP Encontrado(s) 1 processo(s) onde a parte foi citada como Réu. [INVALID] Consta registro de dívida ativa na Fazenda (4.428,55). [INVALID] Encontrada(s) 2 Restrição(ões) Financeira(s).",
+    "nome": "pontte_bgc_pf_com_serasa",
+    "numero": "95a55577-5d90-4224-827a-077e3773488e",
+    "resultado": "INVALID",
+    "status": "CONCLUIDO",
+    "validado_em": "2020-02-06T15:22:10.477Z",
+    "validado_manualmente": false,
+    "certidoes_negativas": {
+      "itens": [
+        {
+          "emitido_em": "2020-02-06T15:22:37.777430Z",
+          "fonte": "AntecedentesTRF4",
+          "protocolo": "ffd9b12f405a248cda20d0dede0a77f7",
+          "url": null,
+          "nada_consta": true,
+          "arquivo": "files.idwall.co/file/prod-idwall-certidoes-pdf/1605e92c-a919-4028-9c7a-86d6f73c4929/120e011a-ce08-442b-a114-816ea067e627.pdf"
+        },
+        {
+          "emitido_em": "2020-02-06T15:22:44.310246Z",
+          "fonte": "AntecedentesTRF1",
+          "protocolo": "458236",
+          "url": null,
+          "nada_consta": true,
+          "arquivo": "files.idwall.co/file/prod-idwall-certidoes-pdf/1605e92c-a919-4028-9c7a-86d6f73c4929/5a6eba30-37ba-48fc-8287-432980698359.pdf"
+        },
+        {
+          "emitido_em": "2020-02-06T15:22:52.639169Z",
+          "fonte": "AntecedentesTRF5",
+          "protocolo": "113226/2020",
+          "url": null,
+          "nada_consta": true,
+          "arquivo": "files.idwall.co/file/prod-idwall-certidoes-pdf/1605e92c-a919-4028-9c7a-86d6f73c4929/902385f6-0d61-4e05-9a69-969e5ca5b9a8.pdf"
+        },
+        {
+          "emitido_em": "2020-02-06T15:23:07.965696Z",
+          "fonte": "CertidaoNegativaDebitosTrabalhistas",
+          "protocolo": "3546650/2020",
+          "url": null,
+          "nada_consta": true
+        },
+        {
+          "emitido_em": "2020-02-06T15:23:08.817900Z",
+          "fonte": "AntecedentesPoliciaFederal",
+          "protocolo": "7882402020",
+          "url": null,
+          "nada_consta": true,
+          "arquivo": "files.idwall.co/file/prod-idwall-certidoes-pdf/1605e92c-a919-4028-9c7a-86d6f73c4929/b8b2822b-bf51-4373-afda-fbe16ebb8c40.pdf"
+        },
+        {
+          "emitido_em": "2020-02-06T15:23:29.811519Z",
+          "fonte": "AntecedentesTRF3",
+          "protocolo": "Número: 2020.0000557929 Código de segurança: 1c175cd1 e30049a9 a27913a1 5f3dd83a 5cfa3ea7",
+          "url": null,
+          "nada_consta": true,
+          "arquivo": "files.idwall.co/file/prod-idwall-certidoes-pdf/1605e92c-a919-4028-9c7a-86d6f73c4929/b8df2bfb-34ba-4499-b02a-712ae32a3212.pdf"
+        },
+        {
+          "emitido_em": "2020-02-06T15:23:43.605800Z",
+          "fonte": "MandadosPrisaoBancoNacional",
+          "protocolo": null,
+          "url": null,
+          "nada_consta": true
+        },
+        {
+          "emitido_em": "2020-02-06T15:24:10.139057Z",
+          "fonte": "TRTSP",
+          "protocolo": "1835781687EKNSLsjy",
+          "url": null,
+          "nada_consta": true
+        },
+        {
+          "emitido_em": "2020-02-06T15:25:30.993027Z",
+          "fonte": "AntecedentesTRF2",
+          "protocolo": "2020.00127328",
+          "url": null,
+          "nada_consta": true,
+          "arquivo": "files.idwall.co/file/prod-idwall-certidoes-pdf/1605e92c-a919-4028-9c7a-86d6f73c4929/0bac2426-92ac-4a14-af58-a557623dfcd9.pdf"
+        }
+      ]
+    },
+    "cpf": {
+      "sexo": "F",
+      "numero": "224.325.938-98",
+      "data_de_nascimento": "11/01/1982",
+      "fonte": "RECEITA FEDERAL",
+      "nome": "BERNADETE JABRA TAVARES",
+      "renda": "3 - 4 A 10 SM",
+      "situacao_imposto_de_renda": "REGULAR",
+      "pep": false,
+      "cpf_situacao_cadastral": "REGULAR",
+      "cpf_data_de_inscricao": "18/02/2000",
+      "cpf_digito_verificador": "00",
+      "cpf_anterior_1990": "N",
+      "ano_obito": "",
+      "grafias": ["BERNADETE JABRA TAVARES"]
+    },
+    "divida_ativa": {
+      "nome": "BERNADETE JABRA TAVARES",
+      "valor_devido": "4.428,55"
+    },
+    "ofac_sdn": {
+      "itens": [
+        {
+          "pontuacao": "90",
+          "numero_sdn": null,
+          "nome": "KYUNG-WHA, Tsui",
+          "apelidos": "MENEZES, Antonio Famtosonghiu Sampo - a.k.a. - strong; JINGHUA, Xu - a.k.a. - strong; KING, Sam - a.k.a. - strong; HUI, Samo - a.k.a. - strong; LEUNG, Ghiu Ka - a.k.a. - strong; KYUNG-WHA, Tsui - a.k.a. - strong",
+          "endereco": null,
+          "observacoes": "",
+          "tipo": "Individual",
+          "programa": "ZIMBABWE",
+          "titulo": "",
+          "data_nascimento": ["28 Feb 1958"],
+          "local_nascimento": [""],
+          "nacionalidade": ["China"],
+          "cidadania": "Angola; United Kingdom",
+          "identificacao": [
+            {
+              "id": "C234897(0)",
+              "pais": "United Kingdom",
+              "tipo": "Passport",
+              "dataEmissao": " ",
+              "dataExpiracao": " "
+            }
+          ],
+          "arquivo": null,
+          "fonte": "OFACSDN"
+        }
+      ]
+    },
+    "processos": {
+      "itens": [
+        {
+          "acao": null,
+          "arquivamento": {
+            "caixa": null,
+            "estante": null,
+            "livro": null,
+            "local": null,
+            "localizador": null,
+            "maco": null,
+            "prateleira": null
+          },
+          "assistencia": null,
+          "assunto": "Honorários Advocatícios",
+          "classe": "Procedimento Comum Cível",
+          "data_de_ajuizamento": null,
+          "data_de_distribuicao": null,
+          "data_de_julgamento": null,
+          "data_de_recebimento": "02/08/2018",
+          "fonte": "ProcessosTJSP",
+          "identificacao": {
+            "ano": null,
+            "controle": null,
+            "guia_inicial": null,
+            "numero": "2S000WCV90000"
+          },
+          "impedimento": null,
+          "instancia": "1",
+          "juiz": null,
+          "localizacao": {
+            "bairro": null,
+            "cep": null,
+            "cidade": null,
+            "comarca": null,
+            "complemento": null,
+            "endereco": null,
+            "estado": null,
+            "foro": "Foro Central Cível",
+            "logradouro": null,
+            "lotacao": null,
+            "municipio": null,
+            "numero": null,
+            "oficio": null,
+            "vara": null
+          },
+          "natureza": null,
+          "numero": "1079997-79.2018.8.26.0100",
+          "observacoes": null,
+          "partes": [
+            {
+              "cnpj": null,
+              "cpf": null,
+              "data_de_nascimento": null,
+              "nome": "Shirley Mery Marin",
+              "rg": null,
+              "sexo": null,
+              "tipo": null,
+              "titulo": "ADVOGADO"
+            },
+            {
+              "cnpj": null,
+              "cpf": null,
+              "data_de_nascimento": null,
+              "nome": "Bernadete Jabra Tavares",
+              "rg": null,
+              "sexo": null,
+              "tipo": null,
+              "titulo": "REQDA"
+            },
+            {
+              "cnpj": null,
+              "cpf": null,
+              "data_de_nascimento": null,
+              "nome": "Clea Campi Monaco",
+              "rg": null,
+              "sexo": null,
+              "tipo": null,
+              "titulo": "ADVOGADO"
+            },
+            {
+              "cnpj": null,
+              "cpf": null,
+              "data_de_nascimento": null,
+              "nome": "Clea Campi Monaco",
+              "rg": null,
+              "sexo": null,
+              "tipo": null,
+              "titulo": "REQTE"
+            }
+          ],
+          "peticao_inicial": null,
+          "segredo": null,
+          "sigiloso": null,
+          "situacao": null,
+          "tramitacao_preferencial": null,
+          "url": null,
+          "valor": null
+        }
+      ],
+      "estados_sem_processos": [],
+      "estados_com_processos": ["SP"],
+      "estados_indeterminados": [
+        "AC",
+        "AL",
+        "AP",
+        "AM",
+        "BA",
+        "CE",
+        "DF",
+        "ES",
+        "GO",
+        "MA",
+        "MT",
+        "MS",
+        "MG",
+        "PA",
+        "PB",
+        "PR",
+        "PE",
+        "PI",
+        "RJ",
+        "RN",
+        "RS",
+        "RO",
+        "RR",
+        "SC",
+        "SE",
+        "TO"
+      ]
+    },
+    "protestos": {
+      "estados_sem_protestos": [
+        "TO",
+        "SE",
+        "SP",
+        "SC",
+        "RR",
+        "RO",
+        "RS",
+        "RN",
+        "RJ",
+        "PI",
+        "PE",
+        "PR",
+        "PB",
+        "PA",
+        "MG",
+        "MS",
+        "MT",
+        "MA",
+        "GO",
+        "ES",
+        "DF",
+        "CE",
+        "BA",
+        "AM",
+        "AP",
+        "AL",
+        "AC"
+      ]
+    },
+    "restricoes_financeiras": {
+      "itens": [
+        {
+          "uf": "  ",
+          "praca": "",
+          "valor": "R$ 7235,16",
+          "natureza": "Cartão de crédito",
+          "municipio": "                              ",
+          "principal": "PRINCIPAL",
+          "cnpj_origem": "60746948000112",
+          "chave_cadus": "0714489419",
+          "filial_cnpj": "0000",
+          "data_inclusao": "09/12/2019",
+          "hora_inclusao": "00:00:00",
+          "nome_fantasia": "BANCO BRADESCO",
+          "codigo_contrato": "224325938000098C",
+          "data_ocorrencia": "25/10/2019",
+          "serie_chave_cadus": "A",
+          "anotacao_sub_judice": " ",
+          "modalidade_natureza": "CRED CARTAO                   "
+        },
+        {
+          "uf": "  ",
+          "praca": "",
+          "valor": "R$ 613,78",
+          "natureza": "Empréstimos em contas - c/c garantidas, financiamentos de capital de giro, programas especiais, etc",
+          "municipio": "                              ",
+          "principal": "PRINCIPAL",
+          "cnpj_origem": "60746948000112",
+          "chave_cadus": "0710286490",
+          "filial_cnpj": "0000",
+          "data_inclusao": "02/12/2019",
+          "hora_inclusao": "00:00:00",
+          "nome_fantasia": "BANCO BRADESCO",
+          "codigo_contrato": "224325938000098E",
+          "data_ocorrencia": "21/10/2019",
+          "serie_chave_cadus": "A",
+          "anotacao_sub_judice": " ",
+          "modalidade_natureza": "EMPRES CONTA                  "
+        }
+      ]
+    },
+    "pendencias": {
+      "itens": [
+        {
+          "cnpj": "020000",
+          "nome": "LIGHT S.E.S.A",
+          "praca": "",
+          "valor": "R$ 18,00",
+          "contrato": "000554652328944N",
+          "natureza": "CÓDIGO DE ANOTAÇÃO NÃO ENCONTRADO",
+          "documento": "60444437000000",
+          "principal": "PRINCIPAL",
+          "cred_partic": "P",
+          "modalidade": "OUTRAS OPER",
+          "serie_cadus": "A",
+          "data_inclusao": "11/11/2017",
+          "hora_inclusao": "00:00:00",
+          "data_ocorrencia": "14/04/2016",
+          "tipo_ocorrencia": "PEFIN",
+          "anotacao_sub_judice": false,
+          "digito_verificador": "00",
+          "fonte": "pendenciasFinanceiras"
+        },
+        {
+          "cnpj": "020000",
+          "nome": "LIGHT S.E.S.A",
+          "praca": "",
+          "valor": "R$ 18,66",
+          "contrato": "000512852341549N",
+          "natureza": "CÓDIGO DE ANOTAÇÃO NÃO ENCONTRADO",
+          "documento": "60444437000000",
+          "principal": "PRINCIPAL",
+          "cred_partic": "P",
+          "modalidade": "OUTRAS OPER",
+          "serie_cadus": "A",
+          "data_inclusao": "11/11/2017",
+          "hora_inclusao": "00:00:00",
+          "data_ocorrencia": "15/03/2016",
+          "tipo_ocorrencia": "PEFIN",
+          "anotacao_sub_judice": false,
+          "digito_verificador": "00",
+          "fonte": "pendenciasFinanceiras"
+        },
+        {
+          "cnpj": "020000",
+          "nome": "LIGHT S.E.S.A",
+          "praca": "",
+          "valor": "R$ 19,04",
+          "contrato": "000635403077501N",
+          "natureza": "CÓDIGO DE ANOTAÇÃO NÃO ENCONTRADO",
+          "documento": "60444437000000",
+          "principal": "PRINCIPAL",
+          "cred_partic": "P",
+          "modalidade": "OUTRAS OPER",
+          "serie_cadus": "A",
+          "data_inclusao": "11/11/2017",
+          "hora_inclusao": "00:00:00",
+          "data_ocorrencia": "17/02/2016",
+          "tipo_ocorrencia": "PEFIN",
+          "anotacao_sub_judice": false,
+          "digito_verificador": "00",
+          "fonte": "pendenciasFinanceiras"
+        },
+        {
+          "cnpj": "020000",
+          "nome": "LIGHT S.E.S.A",
+          "praca": "",
+          "valor": "R$ 26,78",
+          "contrato": "0000644902745028",
+          "natureza": "CÓDIGO DE ANOTAÇÃO NÃO ENCONTRADO",
+          "documento": "60444437000000",
+          "principal": "PRINCIPAL",
+          "cred_partic": "P",
+          "modalidade": "OUTRAS OPER",
+          "serie_cadus": " ",
+          "data_inclusao": "02/03/2016",
+          "hora_inclusao": "00:00:00",
+          "data_ocorrencia": "18/01/2016",
+          "tipo_ocorrencia": "PEFIN",
+          "anotacao_sub_judice": false,
+          "digito_verificador": "00",
+          "fonte": "pendenciasFinanceiras"
+        },
+        {
+          "cnpj": "020000",
+          "nome": "HOSPITAL ALVORAD",
+          "praca": "",
+          "valor": "R$ 50,67",
+          "contrato": "00008176-30SP22 ",
+          "natureza": "CÓDIGO DE ANOTAÇÃO NÃO ENCONTRADO",
+          "documento": "08100676000000",
+          "principal": "PRINCIPAL",
+          "cred_partic": "P",
+          "modalidade": "NOTA FISCAL",
+          "serie_cadus": " ",
+          "data_inclusao": "17/07/2015",
+          "hora_inclusao": "00:00:00",
+          "data_ocorrencia": "22/06/2015",
+          "tipo_ocorrencia": "PEFIN",
+          "anotacao_sub_judice": false,
+          "digito_verificador": "00",
+          "fonte": "pendenciasFinanceiras"
+        }
+      ]
+    },
+    "pessoas_relacionadas": [
+      {
+        "cpf": "",
+        "nome": "ROSELEINE JABRA TAVARES",
+        "tipo": "MAE"
+      },
+      {
+        "cpf": "50690264887",
+        "nome": "JOSE CARLOS CHAVES TAVARES"
+      },
+      {
+        "cpf": "05918557717",
+        "nome": "CARLOS EDUARDO PICCOLO DOS SANTOS",
+        "tipo": "ESPOSA"
+      },
+      {
+        "cpf": "00120127857",
+        "nome": "LAURA CHAVES TAVARES",
+        "tipo": "AVÔ"
+      }
+    ],
+    "participacao_empresas": {
+      "itens": [
+        {
+          "cnpj": "20741977000177",
+          "nome_empresarial": "BERNADETE JABRA TAVARES 22432593898",
+          "tipo_relacionamento": "OWNERSHIP"
+        },
+        {
+          "cnpj": "01835143000186",
+          "nome_empresarial": "QUEBECK AUTOMACAO E COMERCIO LTDA",
+          "tipo_relacionamento": "EMPLOYMENT"
+        },
+        {
+          "cnpj": "07073027000900",
+          "nome_empresarial": "TIVIT TERCEIRIZACAO DE PROCESSOS, SERVICOS E TECNOLOGIA S.A.",
+          "tipo_relacionamento": "EMPLOYMENT"
+        },
+        {
+          "cnpj": "31249949000234",
+          "nome_empresarial": "CAMARA DE COMERCIO E INDUSTRIA BRASIL-CHINA",
+          "tipo_relacionamento": "EMPLOYMENT"
+        },
+        {
+          "cnpj": "57632705000149",
+          "nome_empresarial": "ENGETAL ENGENHARIA E CONSTRUCOES LTDA",
+          "tipo_relacionamento": "EMPLOYMENT"
+        },
+        {
+          "cnpj": "59952259000185",
+          "nome_empresarial": "ASSEMBLEIA LEGISLATIVA DO ESTADO DE SAO PAULO",
+          "tipo_relacionamento": "EMPLOYMENT"
+        },
+        {
+          "cnpj": "61870200000190",
+          "nome_empresarial": "INTRA S A CORRETORA DE CAMBIO E VALORES",
+          "tipo_relacionamento": "EMPLOYMENT"
+        },
+        {
+          "cnpj": "71722854000120",
+          "nome_empresarial": "HI SERVICE CAR LOCADORA DE VEICULOS LTDA",
+          "tipo_relacionamento": "EMPLOYMENT"
+        }
+      ]
+    }
+  },
+  "parameters": {
+    "cpf": "22432593898",
+    "parametros_auxiliares": [
+      {
+        "tipo": "CPF_DATA_NASCIMENTO",
+        "fonte": "Fonte Privada",
+        "valor": "11/01/1982"
+      },
+      {
+        "tipo": "CPF_NOME",
+        "fonte": "Fonte Privada",
+        "valor": "BERNADETE JABRA TAVARES"
+      },
+      {
+        "tipo": "CPF_NOME_DA_MAE",
+        "fonte": "Fonte Privada",
+        "valor": "ROSELEINE JABRA TAVARES"
+      },
+      {
+        "tipo": "CPF_NOME_DO_PAI",
+        "fonte": "Fonte Privada",
+        "valor": "JOSE CARLOS CHAVES TAVARES"
+      },
+      {
+        "tipo": "CPF_SEXO",
+        "fonte": "Fonte Privada",
+        "valor": "F"
+      },
+      {
+        "tipo": "ENDERECO_BAIRRO",
+        "fonte": "Fonte Privada",
+        "valor": "MOEMA"
+      },
+      {
+        "tipo": "ENDERECO_CEP",
+        "fonte": "Fonte Privada",
+        "valor": "04522032"
+      },
+      {
+        "tipo": "ENDERECO_CIDADE",
+        "fonte": "Fonte Privada",
+        "valor": "SAO PAULO"
+      },
+      {
+        "tipo": "ENDERECO_ESTADO",
+        "fonte": "Fonte Privada",
+        "valor": "SP"
+      },
+      {
+        "tipo": "ENDERECO_LOGRADOURO",
+        "fonte": "Fonte Privada",
+        "valor": "RUA GAIVOTA"
+      },
+      {
+        "tipo": "ENDERECO_NUMERO",
+        "fonte": "Fonte Privada",
+        "valor": "879"
+      }
+    ]
+  },
+  "queries": [
+    {
+      "nome": "Antecedentes TRF2",
+      "tentativas": [
+        {
+          "duracao_tentativa": 6.412,
+          "hora_fim_tentativa": "2020-02-06T15:25:31.120Z",
+          "hora_inicio_tentativa": "2020-02-06T15:25:24.708Z",
+          "msg_erro_tentativa": "",
+          "nome_fonte": "Antecedentes TRF2",
+          "status_fonte": "OK",
+          "status_tentativa": "SUCCESS",
+          "tipo_erro_tentativa": null
+        }
+      ]
+    },
+    {
+      "nome": "TRT SP",
+      "tentativas": [
+        {
+          "duracao_tentativa": 52.211,
+          "hora_fim_tentativa": "2020-02-06T15:24:32.793Z",
+          "hora_inicio_tentativa": "2020-02-06T15:23:40.582Z",
+          "msg_erro_tentativa": "",
+          "nome_fonte": "TRT SP",
+          "status_fonte": "OK",
+          "status_tentativa": "SUCCESS",
+          "tipo_erro_tentativa": null
+        }
+      ]
+    },
+    {
+      "nome": "Mandados de Prisão do Banco Nacional",
+      "tentativas": [
+        {
+          "duracao_tentativa": 15.158,
+          "hora_fim_tentativa": "2020-02-06T15:23:43.788Z",
+          "hora_inicio_tentativa": "2020-02-06T15:23:28.630Z",
+          "msg_erro_tentativa": "",
+          "nome_fonte": "Mandados de Prisão do Banco Nacional",
+          "status_fonte": "OK",
+          "status_tentativa": "SUCCESS",
+          "tipo_erro_tentativa": null
+        }
+      ]
+    },
+    {
+      "nome": "Antecedentes TRF3",
+      "tentativas": [
+        {
+          "duracao_tentativa": 54.499,
+          "hora_fim_tentativa": "2020-02-06T15:23:31.376Z",
+          "hora_inicio_tentativa": "2020-02-06T15:22:36.877Z",
+          "msg_erro_tentativa": "",
+          "nome_fonte": "Antecedentes TRF3",
+          "status_fonte": "OK",
+          "status_tentativa": "SUCCESS",
+          "tipo_erro_tentativa": null
+        }
+      ]
+    },
+    {
+      "nome": "Processos SP",
+      "tentativas": [
+        {
+          "duracao_tentativa": 5.102,
+          "hora_fim_tentativa": "2020-02-06T15:23:15.614Z",
+          "hora_inicio_tentativa": "2020-02-06T15:23:10.512Z",
+          "msg_erro_tentativa": "",
+          "nome_fonte": "Processos SP",
+          "status_fonte": "OK",
+          "status_tentativa": "SUCCESS",
+          "tipo_erro_tentativa": null
+        }
+      ]
+    },
+    {
+      "nome": "Antecedentes Federal",
+      "tentativas": [
+        {
+          "duracao_tentativa": 30.588,
+          "hora_fim_tentativa": "2020-02-06T15:23:09.080Z",
+          "hora_inicio_tentativa": "2020-02-06T15:22:38.492Z",
+          "msg_erro_tentativa": "",
+          "nome_fonte": "Antecedentes Federal",
+          "status_fonte": "OK",
+          "status_tentativa": "SUCCESS",
+          "tipo_erro_tentativa": null
+        }
+      ]
+    },
+    {
+      "nome": "Certidão Negativa de Débitos Trabalhistas",
+      "tentativas": [
+        {
+          "duracao_tentativa": 32.165,
+          "hora_fim_tentativa": "2020-02-06T15:23:07.987Z",
+          "hora_inicio_tentativa": "2020-02-06T15:22:35.822Z",
+          "msg_erro_tentativa": "",
+          "nome_fonte": "Certidão Negativa de Débitos Trabalhistas",
+          "status_fonte": "OK",
+          "status_tentativa": "SUCCESS",
+          "tipo_erro_tentativa": null
+        }
+      ]
+    },
+    {
+      "nome": "Antecedentes TRF5",
+      "tentativas": [
+        {
+          "duracao_tentativa": 19.41,
+          "hora_fim_tentativa": "2020-02-06T15:22:55.238Z",
+          "hora_inicio_tentativa": "2020-02-06T15:22:35.828Z",
+          "msg_erro_tentativa": "",
+          "nome_fonte": "Antecedentes TRF5",
+          "status_fonte": "OK",
+          "status_tentativa": "SUCCESS",
+          "tipo_erro_tentativa": null
+        }
+      ]
+    },
+    {
+      "nome": "Antecedentes TRF1",
+      "tentativas": [
+        {
+          "duracao_tentativa": 8.508,
+          "hora_fim_tentativa": "2020-02-06T15:22:45.386Z",
+          "hora_inicio_tentativa": "2020-02-06T15:22:36.878Z",
+          "msg_erro_tentativa": "",
+          "nome_fonte": "Antecedentes TRF1",
+          "status_fonte": "OK",
+          "status_tentativa": "SUCCESS",
+          "tipo_erro_tentativa": null
+        }
+      ]
+    },
+    {
+      "nome": "Antecedentes TRF4",
+      "tentativas": [
+        {
+          "duracao_tentativa": 7.749,
+          "hora_fim_tentativa": "2020-02-06T15:22:44.608Z",
+          "hora_inicio_tentativa": "2020-02-06T15:22:36.859Z",
+          "msg_erro_tentativa": "",
+          "nome_fonte": "Antecedentes TRF4",
+          "status_fonte": "OK",
+          "status_tentativa": "SUCCESS",
+          "tipo_erro_tentativa": null
+        }
+      ]
+    },
+    {
+      "nome": "CoafPep",
+      "tentativas": [
+        {
+          "duracao_tentativa": 8.262,
+          "hora_fim_tentativa": "2020-02-06T15:22:44.120Z",
+          "hora_inicio_tentativa": "2020-02-06T15:22:35.858Z",
+          "msg_erro_tentativa": "",
+          "nome_fonte": "CoafPep",
+          "status_fonte": "OK",
+          "status_tentativa": "SUCCESS",
+          "tipo_erro_tentativa": null
+        }
+      ]
+    },
+    {
+      "nome": "OFACSDN",
+      "tentativas": [
+        {
+          "duracao_tentativa": 7.879,
+          "hora_fim_tentativa": "2020-02-06T15:22:43.708Z",
+          "hora_inicio_tentativa": "2020-02-06T15:22:35.829Z",
+          "msg_erro_tentativa": "",
+          "nome_fonte": "OFACSDN",
+          "status_fonte": "OK",
+          "status_tentativa": "SUCCESS",
+          "tipo_erro_tentativa": null
+        }
+      ]
+    },
+    {
+      "nome": "Serasa Concentre",
+      "tentativas": [
+        {
+          "duracao_tentativa": 0.917,
+          "hora_fim_tentativa": "2020-02-06T15:22:38.829Z",
+          "hora_inicio_tentativa": "2020-02-06T15:22:37.912Z",
+          "msg_erro_tentativa": "",
+          "nome_fonte": "Serasa Concentre",
+          "status_fonte": "OK",
+          "status_tentativa": "SUCCESS",
+          "tipo_erro_tentativa": null
+        }
+      ]
+    },
+    {
+      "nome": "Protestos",
+      "tentativas": [
+        {
+          "duracao_tentativa": 0.915,
+          "hora_fim_tentativa": "2020-02-06T15:22:37.792Z",
+          "hora_inicio_tentativa": "2020-02-06T15:22:36.877Z",
+          "msg_erro_tentativa": "",
+          "nome_fonte": "Protestos",
+          "status_fonte": "OK",
+          "status_tentativa": "SUCCESS",
+          "tipo_erro_tentativa": null
+        }
+      ]
+    },
+    {
+      "nome": "Divida Ativa na Fazenda",
+      "tentativas": [
+        {
+          "duracao_tentativa": 0.833,
+          "hora_fim_tentativa": "2020-02-06T15:22:38.481Z",
+          "hora_inicio_tentativa": "2020-02-06T15:22:37.648Z",
+          "msg_erro_tentativa": "",
+          "nome_fonte": "Divida Ativa na Fazenda",
+          "status_fonte": "OK",
+          "status_tentativa": "SUCCESS",
+          "tipo_erro_tentativa": null
+        }
+      ]
+    },
+    {
+      "nome": "Sanções Nações Unidas",
+      "tentativas": [
+        {
+          "duracao_tentativa": 1.858,
+          "hora_fim_tentativa": "2020-02-06T15:22:37.695Z",
+          "hora_inicio_tentativa": "2020-02-06T15:22:35.837Z",
+          "msg_erro_tentativa": "",
+          "nome_fonte": "Sanções Nações Unidas",
+          "status_fonte": "OK",
+          "status_tentativa": "SUCCESS",
+          "tipo_erro_tentativa": null
+        }
+      ]
+    },
+    {
+      "nome": "Processos STF",
+      "tentativas": [
+        {
+          "duracao_tentativa": 1.019,
+          "hora_fim_tentativa": "2020-02-06T15:22:37.055Z",
+          "hora_inicio_tentativa": "2020-02-06T15:22:36.036Z",
+          "msg_erro_tentativa": "",
+          "nome_fonte": "Processos STF",
+          "status_fonte": "OK",
+          "status_tentativa": "SUCCESS",
+          "tipo_erro_tentativa": null
+        }
+      ]
+    },
+    {
+      "nome": "Processos STJ",
+      "tentativas": [
+        {
+          "duracao_tentativa": 1.17,
+          "hora_fim_tentativa": "2020-02-06T15:22:36.991Z",
+          "hora_inicio_tentativa": "2020-02-06T15:22:35.821Z",
+          "msg_erro_tentativa": "",
+          "nome_fonte": "Processos STJ",
+          "status_fonte": "OK",
+          "status_tentativa": "SUCCESS",
+          "tipo_erro_tentativa": null
+        }
+      ]
+    },
+    {
+      "nome": "CPF Receita Federal",
+      "tentativas": [
+        {
+          "duracao_tentativa": 22.96,
+          "hora_fim_tentativa": "2020-02-06T15:22:35.290Z",
+          "hora_inicio_tentativa": "2020-02-06T15:22:12.330Z",
+          "msg_erro_tentativa": "",
+          "nome_fonte": "CPF Receita Federal",
+          "status_fonte": "OK",
+          "status_tentativa": "SUCCESS",
+          "tipo_erro_tentativa": null
+        }
+      ]
+    },
+    {
+      "nome": "Fonte Privada",
+      "tentativas": [
+        {
+          "duracao_tentativa": 0.977,
+          "hora_fim_tentativa": "2020-02-06T15:22:11.642Z",
+          "hora_inicio_tentativa": "2020-02-06T15:22:10.665Z",
+          "msg_erro_tentativa": "",
+          "nome_fonte": "Fonte Privada",
+          "status_fonte": "OK",
+          "status_tentativa": "SUCCESS",
+          "tipo_erro_tentativa": null
+        }
+      ]
+    }
+  ],
+  "validation": [
+    {
+      "regra": "idwall.matrix.regras.protestos.RegraProtestos",
+      "nome": "Protestos",
+      "descricao": "Não devem constar protestos",
+      "resultado": "VALID"
+    },
+    {
+      "regra": "idwall.matrix.regras.certidoes.RegraMandadosPrisao",
+      "nome": "Mandados de Prisão",
+      "descricao": "Não devem constar mandados de prisão",
+      "resultado": "VALID"
+    },
+    {
+      "regra": "idwall.matrix.regras.serasa.concentre.RegraRefinSerasaConcentre",
+      "nome": "Restrições Financeiras Serasa Concentre (REFIN)",
+      "descricao": "Não deve constar restrições financeiras (REFIN) no Serasa Concentre",
+      "resultado": "INVALID",
+      "mensagem": "[INVALID] Encontrada(s) 2 Restrição(ões) Financeira(s)."
+    },
+    {
+      "regra": "idwall.matrix.regras.serasa.concentre.RegraProcessosSerasaConcentre",
+      "nome": "Processos no Serasa Concentre",
+      "descricao": "Não deve constar processos (ações judiciais) no Serasa Concentre",
+      "resultado": "VALID"
+    },
+    {
+      "regra": "idwall.matrix.regras.serasa.concentre.RegraPefinSerasaConcentre",
+      "nome": "Pendencias Financeiras Serasa Concentre (PEFIN)",
+      "descricao": "Não deve constar pendências financeiras (PEFIN) no Serasa Concentre",
+      "resultado": "INVALID",
+      "mensagem": "[INVALID] Encontrada(s) 5 Pendência(s) Financeira(s)."
+    },
+    {
+      "regra": "idwall.matrix.regras.serasa.concentre.RegraProtestosSerasaConcentre",
+      "nome": "Regra Protestos Serasa Concentre",
+      "descricao": "Não deve constar protestos no Serasa Concentre",
+      "resultado": "VALID"
+    },
+    {
+      "regra": "idwall.matrix.regras.serasa.concentre.RegraSerasaConcentre",
+      "nome": "Serasa Concentre",
+      "descricao": "Buscar informações no Serasa Concentre",
+      "resultado": "VALID"
+    },
+    {
+      "regra": "idwall.matrix.regras.cpf.RegraNomeReceitaFederal",
+      "nome": "Nome na Receita Federal",
+      "descricao": "Nome deve ser igual ao cadastrado na Receita Federal",
+      "resultado": "VALID"
+    },
+    {
+      "regra": "idwall.matrix.regras.cpf.RegraObito",
+      "nome": "Registro de óbito na Receita Federal",
+      "descricao": "Não deve constar registro de óbito na Receita Federal",
+      "resultado": "VALID"
+    },
+    {
+      "regra": "idwall.matrix.regras.cpf.RegraDataNascimento",
+      "nome": "Data de Nascimento na Receita Federal",
+      "descricao": "Data de Nascimento deve ser igual ao cadastrado na Receita Federal",
+      "resultado": "VALID"
+    },
+    {
+      "regra": "idwall.matrix.regras.blacklists.RegraSDN",
+      "nome": "Indivíduos na lista de SDN da OFAC",
+      "descricao": "Busca pessoas listadas na SDN da OFAC",
+      "resultado": "VALID"
+    },
+    {
+      "regra": "idwall.matrix.regras.blacklists.RegraDividaAtiva",
+      "nome": "Dívida ativa na Fazenda",
+      "descricao": "Busca na lista de devedores que possuem débitos com a Fazenda Nacional e o FGTS inscritos em dívida ativa",
+      "resultado": "INVALID",
+      "mensagem": "[INVALID] Consta registro de dívida ativa na Fazenda (4.428,55)."
+    },
+    {
+      "regra": "idwall.matrix.regras.certidoes.RegraTRTSP",
+      "nome": "Ações trabalhistas no TRTSP",
+      "descricao": "Não devem constar ações trabalhistas no TRTSP",
+      "resultado": "VALID"
+    },
+    {
+      "regra": "idwall.matrix.regras.processos.RegraProcessosReu",
+      "nome": "Processos nos Tribunais de Justiça como Réu",
+      "descricao": "Não deve constar processos nos Tribunais de Justiça onde a parte consultada foi citada como ré(u)",
+      "resultado": "INVALID",
+      "mensagem": "Encontrado(s) 1 processo(s) onde a parte foi citada como Réu."
+    },
+    {
+      "regra": "idwall.matrix.regras.blacklists.RegraUNSanctions",
+      "nome": "Sanções Nações Unidas",
+      "descricao": "Verifica se um nome de empresa ou pessoa está presente na lista de sanções da Nações Unidas",
+      "resultado": "VALID"
+    },
+    {
+      "regra": "idwall.matrix.regras.antecedentes.RegraAntecedente",
+      "nome": "Antecedentes Criminais",
+      "descricao": "Não deve constar antecedentes criminais",
+      "resultado": "VALID"
+    },
+    {
+      "regra": "idwall.matrix.regras.cpf.RegraPep",
+      "nome": "Regra de validação de Pessoa Politicamente Exposta",
+      "descricao": "Verifica se uma pessoa é considerada PEP",
+      "resultado": "VALID",
+      "mensagem": "[VALID] Pessoa não é PEP"
+    },
+    {
+      "regra": "idwall.matrix.regras.certidoes.RegraDebitosTrabalhistas",
+      "nome": "Débitos Trabalhistas",
+      "descricao": "Não devem constar débitos trabalhistas",
+      "resultado": "VALID"
+    },
+    {
+      "regra": "idwall.matrix.regras.cpf.RegraSituacaoReceitaFederal",
+      "nome": "Situação Cadastral Regular",
+      "descricao": "Situação cadastral do CPF deve ser REGULAR",
+      "resultado": "VALID"
+    },
+    {
+      "regra": "idwall.matrix.regras.RegraBigBoost",
+      "nome": "Regra BigBoost",
+      "descricao": "Consulta uma empresa no BigBoost e cria um novo protocolo para cada pessoa pertencente ao quadro societário da empresa",
+      "resultado": "VALID"
+    }
+  ]
+}

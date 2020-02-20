@@ -1,24 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Table from './Table';
+import StatesList from './StatesList'
+
+import report from './report.json';
 
 function App() {
+  let attributes = [
+    { field: 'estados_sem_processos', title: 'Não Constam', renderer: ((data) => <StatesList color="green" states={data} />) },
+    { field: 'estados_com_processos', title: 'Constam Processos', renderer: ((data) => <StatesList color="red" states={data} />) },
+    { field: 'estados_indeterminados', title: 'Estados Não Verificados', renderer: ((data) => <StatesList color="yellow" states={data} />) }, 
+  ];
+
+  let columns = [ 'title', 'value' ]
+
+  let data = report.data;
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Table column={columns} attributes={attributes} data={data.processos} />
     </div>
   );
 }
